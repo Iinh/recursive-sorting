@@ -1,44 +1,42 @@
 # TO-DO: complete the helper function below to merge 2 sorted arrays
 def merge(arrA, arrB):
-    # elements = len(arrA) + len(arrB)
-    # merged_arr = [0] * elements
-    lenA, lenB = len(arrA), len(arrB)
- # Initialize a list large enough to hold both sorted lists
-    merged_arr = [0] * (lenA + lenB)
-  # Build a merged list, stepping through arrA and arrB
-  # and adding the lowest values in order, until the end
-  # of either list is reached
-    indexA = indexB = merged_index = 0
-    while indexA < lenA and indexB < lenB:
-        if arrA[indexA] <= arrB[indexB]:
-            merged_arr[merged_index] = arrA[indexA]
-            indexA += 1
+    elements = len(arrA) + len(arrB)
+    merged_arr = [0] * elements
+
+    # Your code here
+    i = j = k = 0
+    while i < len(arrA) and j < len(arrB):
+        if arrA[i] <= arrB[j]:
+            merged_arr[k] = arrA[i]
+            i = i + 1
         else:
-            merged_arr[merged_index] = arrB[indexB]
-            indexB += 1
-        merged_index += 1
+            merged_arr[k] = arrB[j]
+            j = j + 1
+        k = k + 1
 
     # Add the remaining elements from whichever list hadn't
     # been stepped through completely
-    if indexA < lenA:
-        merged_arr[merged_index:] = arrA[indexA:]
-    else:
-        merged_arr[merged_index:] = arrB[indexB:]
-
+    while i < len(arrA):
+        merged_arr[k] = arrA[i]
+        i = i + 1
+        k = k + 1
+    while j < len(arrB):
+        merged_arr[k] = arrB[j]
+        j = j+1
+        k = k+1
+    print("Merging ", arrA, arrB)
     return merged_arr
 
 # TO-DO: implement the Merge Sort function below recursively
 
 
 def merge_sort(arr):
-    # Your code here
-    lenArr = len(arr)
     # While the data set contains more than one item, split it in half
     # Once down to a single element, you have also *sorted* that element
-    if lenArr > 1:
-        half = lenArr // 2
+    if len(arr) > 1:
+        half = len(arr) // 2
         # Start merging sorted lists together into larger, sorted sets
-        return merge(merge_sort(arr[:half]), merge_sort(arr[half:lenArr]))
+        return merge(merge_sort(arr[:half]), merge_sort(arr[half:len(arr)]))
     return arr
 
 # STRETCH: implement the recursive logic for merge sort in a way that doesn't
